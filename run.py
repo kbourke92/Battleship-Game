@@ -118,3 +118,69 @@ class BattleshipGUI:
                  fg=self.text_color, bg=self.bg).pack()
 
         self.root.bind("r", self.rotate_ship)
+
+    # Placement Logic
+    def preview_ship(self, row, col):
+        self.clear_preview()
+        grid = self.p1_grid if self.placement_stage == 1 else self.p2_grid
+
+        ship_name = list(ships.keys())[self.placing_ship_index]
+        length = ships[ship_name]
+        emoji = ship_emojis[ship_name]
+
+        coords = []
+        for i in range(length):
+            r, c = row, col
+            if self.placing_orientation == "horizontal":
+                c += i
+            else:
+                r += i
+
+            if r >= GRID_SIZE or c >= GRID_SIZE or grid[r][c] != ".":
+                return
+
+            coords.append((r, c))
+
+        for r, c in coords:
+            self.buttons[r][c].config(text=emoji)
+
+        self.drag_preview = coords
+
+    def clear_preview(self):
+        for r, c in self.drag_preview:
+            grid = self.p1_grid if self.placement_stage == 1 else self.p2_grid
+            val = grid[r][c]
+            self.buttons[r][c].config(text=ship_emojis[val] if val in ships else ".")
+        self.drag_preview = []
+
+    def rotate_ship(self, event):
+        self.placing_orientation = (
+            "vertical" if self.placing_orientation == "horizontal" else "horizontal"
+        )
+
+    def place_ship(self, row, col):
+        grid = self.p1_grid if self.placement_stage == 1 else self.p2_grid
+        original = self.p1_original if self.placement_stage == 1 else self.p2_original
+
+        ship_name = list(ships.keys())[self.placing_ship_index]
+        length = ships[ship_name]
+
+        coords = []
+        for i in range(length):
+            r, c = row, col
+            if self.placing_orientation == "horizontal":
+                c += i
+            else:
+                r += i
+
+            if r >= GRID_SIZE or c >= GRID_SIZE or grid[r][c] != ".":
+                self.status_var.set("Cannot place ship here!")
+                return
+            coords.append((r, c))
+
+        for r, c in coords:
+            grid[r][c] = ship_name
+            original[r][c] = ship_name
+            self.buttons[r][c].config(text=ship_emojis[ship_name])
+
+        self.placing_ship_index += 1
