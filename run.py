@@ -308,3 +308,36 @@ class BattleshipGUI:
 
             else:
                 self.status_var.set(f"Player {player} hits!")
+
+        # Miss
+        else:
+            grid[row][col] = "O"
+            btn.config(text="O", bg=self.miss_color)
+            self.status_var.set(f"Player {player} misses!")
+
+        # Check win
+        remaining = any(
+            grid[r][c] not in (".", "X")
+            for r in range(GRID_SIZE) for c in range(GRID_SIZE)
+        )
+
+        if not remaining:
+            if player == 1:
+                self.p1_wins += 1
+                winner = "Player 1"
+            else:
+                self.p2_wins += 1
+                winner = "Player 2"
+
+            messagebox.showinfo(
+                "Game Over",
+                f"{winner} wins!\nScore: P1 {self.p1_wins} | P2 {self.p2_wins}"
+            )
+            self.start_new_game()
+            return
+
+        # Switch turns
+        self.current_player = 2 if self.current_player == 1 else 1
+        self.status_var.set(
+            f"Player {self.current_player}'s turn."
+        )
