@@ -341,3 +341,9 @@ class BattleshipGUI:
         self.status_var.set(
             f"Player {self.current_player}'s turn."
         )
+
+# Run Game
+if __name__ == "__main__":
+    root = tk.Tk()
+    BattleshipGUI(root)
+    root.mainloop()
