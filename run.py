@@ -199,3 +199,62 @@ class BattleshipGUI:
         else:
             next_ship = list(ships.keys())[self.placing_ship_index]
             self.status_var.set(f"Player {self.placement_stage}: Place your {next_ship}")
+
+    # Battle UI
+    def build_battle_gui(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
+        self.status_var.set("Player 1's turn — fire on Player 2")
+
+        self.target_p2_buttons = []
+        self.target_p1_buttons = []
+
+        main = tk.Frame(self.root, bg=self.bg)
+        main.pack(pady=10)
+
+        tk.Label(main, text="Target Player 2", fg=self.text_color, bg=self.bg,
+                 font=("Segoe UI", 12, "bold")).grid(row=0, column=0)
+        tk.Label(main, text="Target Player 1", fg=self.text_color, bg=self.bg,
+                 font=("Segoe UI", 12, "bold")).grid(row=0, column=1)
+
+        frame1 = tk.Frame(main, bg=self.bg)
+        frame1.grid(row=1, column=0, padx=10)
+
+        for r in range(GRID_SIZE):
+            row_buttons = []
+            for c in range(GRID_SIZE):
+                btn = tk.Button(frame1, text=".", width=3, height=2)
+                self.style_button(btn)
+                btn.config(command=lambda rr=r, cc=c: self.fire(1, rr, cc))
+                btn.grid(row=r, column=c, padx=1, pady=1)
+                row_buttons.append(btn)
+            self.target_p2_buttons.append(row_buttons)
+
+        frame2 = tk.Frame(main, bg=self.bg)
+        frame2.grid(row=1, column=1, padx=10)
+
+        for r in range(GRID_SIZE):
+            row_buttons = []
+            for c in range(GRID_SIZE):
+                btn = tk.Button(frame2, text=".", width=3, height=2)
+                self.style_button(btn)
+                btn.config(command=lambda rr=r, cc=c: self.fire(2, rr, cc))
+                btn.grid(row=r, column=c, padx=1, pady=1)
+                row_buttons.append(btn)
+            self.target_p1_buttons.append(row_buttons)
+
+        tk.Label(self.root, textvariable=self.status_var,
+                 fg=self.text_color, bg=self.bg,
+                 font=("Segoe UI", 12)).pack(pady=5)
+
+        self.score_label = tk.Label(self.root,
+                                    text=f"P1 Wins: {self.p1_wins} | P2 Wins: {self.p2_wins}",
+                                    fg=self.text_color, bg=self.bg,
+                                    font=("Segoe UI", 14, "bold"))
+        self.score_label.pack()
+
+        restart = tk.Button(self.root, text="Restart Game",
+                            command=self.start_new_game)
+        self.style_button(restart)
+        restart.pack(pady=10)
