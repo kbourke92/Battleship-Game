@@ -317,7 +317,7 @@ class BattleshipGUI:
 
         # Check win
         remaining = any(
-            grid[r][c] not in (".", "X")
+            grid[r][c] not in ("O", ".", "X")
             for r in range(GRID_SIZE) for c in range(GRID_SIZE)
         )
 
