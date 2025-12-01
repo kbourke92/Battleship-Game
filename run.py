@@ -184,3 +184,18 @@ class BattleshipGUI:
             self.buttons[r][c].config(text=ship_emojis[ship_name])
 
         self.placing_ship_index += 1
+
+        # Next ship or next player or battle
+        if self.placing_ship_index >= len(ships):
+            if self.placement_stage == 1:
+                messagebox.showinfo("Player 1 Done", "Pass to Player 2 for placement.")
+                self.placement_stage = 2
+                self.placing_ship_index = 0
+                self.status_var.set("Player 2: Place your Destroyer")
+                self.build_placement_gui()
+            else:
+                messagebox.showinfo("Placement Complete", "Battle begins!")
+                self.build_battle_gui()
+        else:
+            next_ship = list(ships.keys())[self.placing_ship_index]
+            self.status_var.set(f"Player {self.placement_stage}: Place your {next_ship}")
