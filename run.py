@@ -46,3 +46,20 @@ class BattleshipGUI:
         self.status_var = tk.StringVar()
 
         self.start_new_game()
+
+    # Start New Game
+    def start_new_game(self):
+        self.p1_grid = [["."] * GRID_SIZE for _ in range(GRID_SIZE)]
+        self.p2_grid = [["."] * GRID_SIZE for _ in range(GRID_SIZE)]
+        self.p1_original = [["."] * GRID_SIZE for _ in range(GRID_SIZE)]
+        self.p2_original = [["."] * GRID_SIZE for _ in range(GRID_SIZE)]
+
+        self.current_player = 1
+        self.phase = "placement"
+        self.placement_stage = 1
+        self.placing_ship_index = 0
+        self.placing_orientation = "horizontal"
+        self.drag_preview = []
+
+        self.status_var.set("Player 1: Place your Destroyer")
+        self.build_placement_gui()
