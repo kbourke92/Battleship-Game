@@ -258,3 +258,53 @@ class BattleshipGUI:
                             command=self.start_new_game)
         self.style_button(restart)
         restart.pack(pady=10)
+
+    # Game Logic
+    def fire(self, player, row, col):
+
+        if player != self.current_player:
+            self.status_var.set(f"It's Player {self.current_player}'s turn!")
+            return
+
+        if player == 1:
+            grid = self.p2_grid
+            btn = self.target_p2_buttons[row][col]
+            original = self.p2_original
+            opponent = "Player 2"
+        else:
+            grid = self.p1_grid
+            btn = self.target_p1_buttons[row][col]
+            original = self.p1_original
+            opponent = "Player 1"
+
+        if btn["text"] in ("X", "O"):
+            self.status_var.set("Already fired there!")
+            return
+
+        # Hit
+        if grid[row][col] != ".":
+            grid[row][col] = "X"
+            btn.config(text="X", bg=self.hit_color)
+
+            ship_name = original[row][col]
+
+                        # Collect ship's full coordinate list
+            ship_cells = [(r, c) for r in range(GRID_SIZE)
+                          for c in range(GRID_SIZE)
+                          if original[r][c] == ship_name]
+
+            # Check if ship destroyed
+            if all(grid[r][c] == "X" for r, c in ship_cells):
+
+                self.status_var.set(
+                    f"Player {player} destroyed {opponent}'s {ship_name}!"
+                )
+
+                # Popup message
+                messagebox.showinfo(
+                    "Ship Destroyed",
+                    f"{opponent}'s {ship_name} has been sunk!"
+                )
+
+            else:
+                self.status_var.set(f"Player {player} hits!")
