@@ -3,6 +3,8 @@
 Battleships is a python based game which runs in the Code Institute mock terminal on Heroku.
 It is a 2 player turn based game with players placing their ships on a 10x10 grid and taking turns trying to guess where the other player has placed their ships.
 
+[Here is the live version](
+
 ## How To Play
 Players start by placing their ships on a 10x10 grid. Each player has 3 ships to place.
 
