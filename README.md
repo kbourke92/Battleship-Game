@@ -39,7 +39,7 @@ I have manually tested this project by doing the following:
 ### Validator TEsting
 
 - PEP8 Testing
-  -  xxxxxx [PEP8](www.pep8online.com)
+  -  No errors were returned from [PEP8](www.pep8online.com)
  
   <img width="400" height="300" alt="Screenshot 2025-12-01 203741" src="https://github.com/user-attachments/assets/17008f30-500c-43dd-87cd-118a9ed67793" />
 
