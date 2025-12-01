@@ -75,3 +75,46 @@ class BattleshipGUI:
             bd=0,
             font=(EMOJI_FONT, 14)
         )
+    
+    # Placement UI
+    def build_placement_gui(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
+        tk.Label(
+            self.root,
+            text=f"P1 Wins: {self.p1_wins} | P2 Wins: {self.p2_wins}",
+            fg=self.text_color,
+            bg=self.bg,
+            font=("Segoe UI", 14, "bold")
+        ).pack(pady=10)
+
+        board_frame = tk.Frame(self.root, bg=self.bg)
+        board_frame.pack()
+
+        self.buttons = []
+        grid_data = self.p1_grid if self.placement_stage == 1 else self.p2_grid
+
+        for r in range(GRID_SIZE):
+            row_buttons = []
+            for c in range(GRID_SIZE):
+                btn = tk.Button(board_frame, text=".", width=3, height=2)
+                self.style_button(btn)
+
+                btn.grid(row=r, column=c, padx=1, pady=1)
+                btn.bind("<Enter>", lambda e, rr=r, cc=c: self.preview_ship(rr, cc))
+                btn.bind("<Leave>", lambda e: self.clear_preview())
+                btn.bind("<Button-1>", lambda e, rr=r, cc=c: self.place_ship(rr, cc))
+
+                row_buttons.append(btn)
+            self.buttons.append(row_buttons)
+
+        tk.Label(self.root, textvariable=self.status_var,
+                 fg=self.text_color, bg=self.bg,
+                 font=("Segoe UI", 12)).pack(pady=5)
+
+        tk.Label(self.root,
+                 text="Press 'R' to rotate ship",
+                 fg=self.text_color, bg=self.bg).pack()
+
+        self.root.bind("r", self.rotate_ship)
