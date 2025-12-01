@@ -208,7 +208,10 @@ class BattleshipGUI:
         else:
             next_ship = list(ships.keys())
             [self.placing_ship_index]
-            self.status_var.set(f"Player {self.placement_stage}: Place your {next_ship[self.placing_ship_index]}")
+            ship = list(ships.keys())[self.placing_ship_index]
+            self.status_var.set(
+                f"Player {self.placement_stage}: Place your {ship}"
+            )
 
     # Battle UI
     def build_battle_gui(self):
@@ -259,7 +262,8 @@ class BattleshipGUI:
                  font=("Segoe UI", 12)).pack(pady=5)
 
         self.score_label = tk.Label(self.root,
-                                    text=f"P1 Wins: {self.p1_wins} | P2 Wins: {self.p2_wins}",
+                                    text=f"P1 Wins: {self.p1_wins} | "
+                                    f"P2 Wins: {self.p2_wins}",
                                     fg=self.text_color, bg=self.bg,
                                     font=("Segoe UI", 14, "bold"))
         self.score_label.pack()
