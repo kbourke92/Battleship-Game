@@ -63,3 +63,15 @@ class BattleshipGUI:
 
         self.status_var.set("Player 1: Place your Destroyer")
         self.build_placement_gui()
+
+    # Button Style
+    def style_button(self, btn):
+        btn.config(
+            bg=self.bg,
+            fg=self.text_color,
+            activebackground="#333333",
+            activeforeground="white",
+            relief="flat",
+            bd=0,
+            font=(EMOJI_FONT, 14)
+        )
