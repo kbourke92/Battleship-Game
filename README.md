@@ -1,32 +1,59 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Battleships
 
-Welcome,
+Battleships is a python based game which runs in the Code Institute mock terminal on Heroku.
+It is a 2 player turn based game with players placing their ships on a 10x10 grid and taking turns trying to guess where the other player has placed their ships.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 26, 2025**
+## How To Play
+Players start by placing their ships on a 10x10 grid. Each player has 3 ships to place.
 
-## Reminders
+Players then take turns trying to 'hit' the other players ships.
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+If there is a hit this is marked by an X while a miss is a O.
 
-## Creating the Heroku app
+The winner is the player who sinks the opponents ships first.
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+## Features
 
-1. `heroku/python`
-2. `heroku/nodejs`
+### Existing Features
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+- Precise board allocation
+  - Players cant see where the opponents ships are
+- Play against another person
+- Maintain scores
+- Notification if a ship has been hit
+- Option to start again
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+## Testing
 
-Connect your GitHub repository and deploy as normal.
+I have manually tested this project by doing the following:
 
-## Constraints
+### Validator TEsting
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+- PEP8 Testing
+  -  xxxxxx [PEP8](www.pep8online.com)
 
----
+### Solved Bugs
 
-Happy coding!
+- During testing on Pycharm a bug occured where the ships were not displaying. This was due to the emoji not formatting correctly depending on the OS.
+- While testing on Pycharm I discovered the game did not end despite the all ships being struck. This was due to there being no check in the code to see if there were any ships left.
+
+### Remaining Bugs
+
+There are no bugs outstanding
+
+## Deployment
+
+This project was deployed using Code Institutes mock terminal for Heroku
+
+- Steps for Deployment
+  - Fork or clone this repository
+  - Log in or create a new heroku app
+  - Set the buildbacks to `Python` and `NodeJS` in that order
+  - Link the Heroku app to the repository
+  - Click on Deploy
+ 
+## Credits
+
+- Code Institute for the deployment terminal
+- [llego.dev](https://llego.dev/posts/how-code-simple-battleship-game-python/) for the inspration for the game
+ 
