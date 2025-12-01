@@ -75,7 +75,7 @@ class BattleshipGUI:
             bd=0,
             font=(EMOJI_FONT, 14)
         )
-    
+
     # Placement UI
     def build_placement_gui(self):
         for widget in self.root.winfo_children():
@@ -102,9 +102,12 @@ class BattleshipGUI:
                 self.style_button(btn)
 
                 btn.grid(row=r, column=c, padx=1, pady=1)
-                btn.bind("<Enter>", lambda e, rr=r, cc=c: self.preview_ship(rr, cc))
-                btn.bind("<Leave>", lambda e: self.clear_preview())
-                btn.bind("<Button-1>", lambda e, rr=r, cc=c: self.place_ship(rr, cc))
+                btn.bind("<Enter>", lambda e, rr=r, cc=c:
+                         self.preview_ship(rr, cc))
+                btn.bind("<Leave>", lambda e:
+                         self.clear_preview())
+                btn.bind("<Button-1>", lambda e, rr=r, cc=c:
+                         self.place_ship(rr, cc))
 
                 row_buttons.append(btn)
             self.buttons.append(row_buttons)
@@ -118,6 +121,7 @@ class BattleshipGUI:
                  fg=self.text_color, bg=self.bg).pack()
 
         self.root.bind("r", self.rotate_ship)
+        self.root.bind("R", self.rotate_ship)
 
     # Placement Logic
     def preview_ship(self, row, col):
@@ -147,20 +151,24 @@ class BattleshipGUI:
         self.drag_preview = coords
 
     def clear_preview(self):
+        grid = self.p1_grid if self.placement_stage == 1 else self.p2_grid
         for r, c in self.drag_preview:
-            grid = self.p1_grid if self.placement_stage == 1 else self.p2_grid
             val = grid[r][c]
-            self.buttons[r][c].config(text=ship_emojis[val] if val in ships else ".")
+            self.buttons[r][c].config(text=ship_emojis[val]
+                                      if val in ships else ".")
+        self.drag_preview = []
         self.drag_preview = []
 
     def rotate_ship(self, event):
         self.placing_orientation = (
-            "vertical" if self.placing_orientation == "horizontal" else "horizontal"
+            "vertical" if self.placing_orientation
+            == "horizontal" else "horizontal"
         )
 
     def place_ship(self, row, col):
         grid = self.p1_grid if self.placement_stage == 1 else self.p2_grid
-        original = self.p1_original if self.placement_stage == 1 else self.p2_original
+        original = (self.p1_original if self.placement_stage == 1
+                    else self.p2_original)
 
         ship_name = list(ships.keys())[self.placing_ship_index]
         length = ships[ship_name]
@@ -188,7 +196,8 @@ class BattleshipGUI:
         # Next ship or next player or battle
         if self.placing_ship_index >= len(ships):
             if self.placement_stage == 1:
-                messagebox.showinfo("Player 1 Done", "Pass to Player 2 for placement.")
+                messagebox.showinfo("Player 1 Done",
+                                    "Pass to Player 2 for placement.")
                 self.placement_stage = 2
                 self.placing_ship_index = 0
                 self.status_var.set("Player 2: Place your Destroyer")
@@ -197,8 +206,9 @@ class BattleshipGUI:
                 messagebox.showinfo("Placement Complete", "Battle begins!")
                 self.build_battle_gui()
         else:
-            next_ship = list(ships.keys())[self.placing_ship_index]
-            self.status_var.set(f"Player {self.placement_stage}: Place your {next_ship}")
+            next_ship = list(ships.keys())
+            [self.placing_ship_index]
+            self.status_var.set(f"Player {self.placement_stage}: Place your {next_ship[self.placing_ship_index]}")
 
     # Battle UI
     def build_battle_gui(self):
@@ -288,7 +298,7 @@ class BattleshipGUI:
 
             ship_name = original[row][col]
 
-                        # Collect ship's full coordinate list
+            # Collect ship's full coordinate list
             ship_cells = [(r, c) for r in range(GRID_SIZE)
                           for c in range(GRID_SIZE)
                           if original[r][c] == ship_name]
@@ -342,8 +352,10 @@ class BattleshipGUI:
             f"Player {self.current_player}'s turn."
         )
 
+
 # Run Game
 if __name__ == "__main__":
     root = tk.Tk()
-    BattleshipGUI(root)
+    root = tk.Tk()
+    app = BattleshipGUI(root)
     root.mainloop()
