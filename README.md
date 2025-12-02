@@ -25,6 +25,13 @@ The winner is the player who sinks the opponents ships first.
 - Notification if a ship has been hit
 - Option to start again
 
+<img width="350" height="350" alt="Screenshot 2025-12-01 143150" src="https://github.com/user-attachments/assets/32354e33-7180-46c2-896c-867d1db0529d" />
+<img width="175" height="250" alt="Screenshot 2025-12-01 143208" src="https://github.com/user-attachments/assets/d2deb3b3-fa2a-41b1-b599-43c42c932b4b" /> 
+<img width="175" height="175" alt="Screenshot 2025-12-01 143227" src="https://github.com/user-attachments/assets/5a30d38a-3fbf-4e73-8ee8-a84bba7e9a62" />
+
+
+
+
 ## Testing
 
 I have manually tested this project by doing the following:
@@ -32,7 +39,10 @@ I have manually tested this project by doing the following:
 ### Validator TEsting
 
 - PEP8 Testing
-  -  xxxxxx [PEP8](www.pep8online.com)
+  -  No errors were returned from [PEP8](www.pep8online.com)
+ 
+  <img width="400" height="300" alt="Screenshot 2025-12-01 203741" src="https://github.com/user-attachments/assets/17008f30-500c-43dd-87cd-118a9ed67793" />
+
 
 ### Solved Bugs
 
